@@ -1,7 +1,8 @@
 #include <iostream>
 #include<windows.h>
-#include<conio.h>
+
 using namespace std;
+
 
 int forDiagonally(int &sr,int &sc,int &dr,int &dc);
 int forRow(int &sr,int &sc,int &dr,int &dc);
@@ -10,24 +11,15 @@ int forColumn(int &sr,int &sc,int &dr,int &dc);
 char symbol[7]={' ','R','N','B','K','Q','P'};
 
 int whiteBaground(char team){
-
   if(team=='w') return 127;
-
   else if(team=='b') return 112;
-
   else return 112;
-
-
 }
 
 int blackBaground(char team){
-
   if(team=='w') return 143;
-
   else if(team=='b') return 128;
-
   else return 143;
-
 }
 
 
@@ -38,12 +30,7 @@ class Piece {
    public:
       int pieceatxy;
       char team;
-   virtual int isMoveValid(int &sr,int &sc,int &dr,int &dc){   // Virtual Function
-
-     return 0;
-
-   };
-
+      virtual int isMoveValid(int &sr,int &sc,int &dr,int &dc)=0;  // Pure Virtual Function
 };
 
 
@@ -188,8 +175,6 @@ public:
                 else
                     return 0;
         }
-
-
 };
 
 class Pawn : public Piece {
@@ -333,23 +318,16 @@ void movePiece(int sr,int sc,int dr,int dc)
 
 void display()
 {
-    /*cout<<endl<<endl;
-    for(int i=0;i<8;i++)
-    {
-        for(int j=0;j<8;j++)
-            cout<<chessBoard[i][j].getPiece()->pieceatxy<<"  ";
-        cout<<endl;
 
-    }
-    cout<<endl;*/
 
     system("cls");
     string cell = "       ";
     string sell = "   ";
-    cout<<endl<<endl<<endl;
+    cout<<endl;
+    cout<<"\t     "<<1<<"      "<<2<<"      "<<3<<"      "<<4<<"      "<<5<<"      "<<6<<"      "<<7<<"      "<<8<<"      "<<endl;
     for (int i=0; i<8; i++) {
         if (i%2==0) {
-            cout<<"\t";
+            cout<<"\t  ";
             for (int j=0; j<8; j++) {
                 if (j%2==0) {
                     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112);
@@ -359,9 +337,9 @@ void display()
                     cout<<cell;
                 }
             }
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
             cout<<endl;
-            cout<<"\t";
+            cout<<"\t"<<i+1<<" ";
             for (int j=0; j<8; j++) {
                 if (j%2==0) {
                     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), whiteBaground(chessBoard[i][j].getPiece()->team));
@@ -371,9 +349,9 @@ void display()
                     cout<<sell<<symbol[chessBoard[i][j].getPiece()->pieceatxy]<<sell;
                 }
             }
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
             cout<<endl;
-            cout<<"\t";
+            cout<<"\t  ";
             for (int j=0; j<8; j++) {
                 if (j%2==0) {
                     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 112);
@@ -384,7 +362,7 @@ void display()
                 }
             }
         } else {
-            cout<<"\t";
+            cout<<"\t  ";
             for (int j=0; j<8; j++) {
                 if (j%2==0) {
                     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 128);
@@ -394,9 +372,9 @@ void display()
                     cout<<cell;
                 }
             }
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
             cout<<endl;
-            cout<<"\t";
+            cout<<"\t"<<i+1<<" ";
             for (int j=0; j<8; j++) {
                 if (j%2==0) {
 
@@ -407,9 +385,9 @@ void display()
                     cout<<sell<<symbol[chessBoard[i][j].getPiece()->pieceatxy]<<sell;
                 }
             }
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
             cout<<endl;
-            cout<<"\t";
+            cout<<"\t  ";
             for (int j=0; j<8; j++) {
                 if (j%2==0) {
                     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 128);
@@ -434,7 +412,7 @@ void display()
 
 int main(){
 
-   Game obj;
+    Game obj;
      int i;
      char reply;
      obj.display();
